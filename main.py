@@ -64,16 +64,8 @@ def first(message):
 def name(message):
     with bot.retrieve_data(message.from_user.id, message.chat.id) as data:
         data['name'] = message.text
-    bot.send_message(message.chat.id, 'Супер! Ваша скидка 500 рублей на первую чистку лица')  # Можно менять текст
+    bot.send_message(message.chat.id, 'Супер! Ваша скидка 500 рублей на первую чистку лица \nДелай скрин и пиши [мне](https://wa.me/79146967651)!', reply_markup=menu_keyboard)  # Можно менять текст
     bot.set_state(message.from_user.id, PollState.age, message.chat.id)
-
-
-@bot.message_handler(state=PollState.age)
-def age(message):
-    with bot.retrieve_data(message.from_user.id, message.chat.id) as data:
-        data['age'] = message.text
-    bot.send_message(message.chat.id, 'Делай скрин и пиши [мне](https://wa.me/79146967651)!', reply_markup=menu_keyboard)  # Можно менять текст
-    bot.delete_state(message.from_user.id, message.chat.id)
 
 
 @bot.message_handler(func=lambda message: text_button_1 == message.text)
